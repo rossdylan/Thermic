@@ -48,26 +48,26 @@ class Sensor(object):
     def __repr__(self):
         return self.label
 
+    @classmethod
+    def from_ids(cls, root, ids):
+        """
+        Take in a list of sensor ids, and the root directory they are in
+        then make a list of sensors out of them
 
-def _CreateSensors(root, ids):
-    """
-    Take in a list of sensor ids, and the root directory they are in
-    then make a list of sensors out of them
+        :param root: root directory of these sensors
+        :type root: str
 
-    :param root: root directory of these sensors
-    :type root: str
+        :param ids: list of sensor ids to turn into sensor objs
+        :type ids: [str]
 
-    :param ids: list of sensor ids to turn into sensor objs
-    :type ids: [str]
-
-    :returns [Sensor]
-    """
-    sensors = []
-    for _id in ids:
-        label_f = os.path.join(root, "{0}_label".format(_id))
-        input_f = os.path.join(root, "{0}_input".format(_id))
-        sensors.append(Sensor(root, input_f, label_f))
-    return sensors
+        :returns [Sensor]
+        """
+        sensors = []
+        for _id in ids:
+            label_f = os.path.join(root, "{0}_label".format(_id))
+            input_f = os.path.join(root, "{0}_input".format(_id))
+            sensors.append(Sensor(root, input_f, label_f))
+        return sensors
 
 
 def find_sensors():
@@ -90,5 +90,5 @@ def find_sensors():
                 dirs.remove('hwmon')
             temperature_things = filter(lambda f: "temp" in f, files)
             sensor_ids = set(map(lambda f: f.split("_")[0], temperature_things))
-            sensors.extend(_CreateSensors(root, sensor_ids))
+            sensors.extend(Sensor.from_ids(root, sensor_ids))
     return sensors
