@@ -88,7 +88,7 @@ def find_sensors():
                 dirs.remove('driver')
             if 'hwmon' in dirs:
                 dirs.remove('hwmon')
-            if 'device' in 'dirs' and any(map(lambda f: f.startswith('temp'), files)):
+            if 'device' in dirs and any(map(lambda f: f.startswith('temp'), files)):
                 dirs.remove('device')
             temperature_things = filter(lambda f: "temp" in f, files)
             sensor_ids = set(map(lambda f: f.split("_")[0], temperature_things))
