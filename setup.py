@@ -9,6 +9,10 @@ setup(
     name="heat",
     description="Pure python interface for linux temperature sensing",
     long_description=readme,
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 2',
+    ],
     author="Ross Delinger",
     author_email="ross.delinger@gmail.com",
     url="https://github.com/rossdylan/heat",
