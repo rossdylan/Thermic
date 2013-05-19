@@ -6,7 +6,7 @@ except ImportError:
 
 readme = open('./README', 'r').read()
 setup(
-    name="heat",
+    name="thermic",
     description="Pure python interface for linux temperature sensing",
     long_description=readme,
     classifiers=[
@@ -15,8 +15,8 @@ setup(
     ],
     author="Ross Delinger",
     author_email="ross.delinger@gmail.com",
-    url="https://github.com/rossdylan/heat",
+    url="https://github.com/rossdylan/thermic",
     version='0.1.1',
-    packages=['heat'],
+    packages=['thermic'],
     zip_safe=False
 )

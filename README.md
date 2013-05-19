@@ -1,4 +1,4 @@
-# Heat
+# Thermic
 ## Pure Python interface to linux temperature sensors
 
 * MIT Licensed
@@ -7,7 +7,7 @@
 * Python 2 and Python 3 Compatible
 
 ```python
-from heat import find_sensors
+from thermic import find_sensors
 sensors = find_sensors()
 print(sensors[0].label) # Name of the sensor
 print(sensors[0].tempc) # temperature in Celcius
