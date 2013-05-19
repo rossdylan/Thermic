@@ -13,10 +13,11 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 2',
     ],
+    license="MIT",
     author="Ross Delinger",
     author_email="ross.delinger@gmail.com",
     url="https://github.com/rossdylan/thermic",
-    version='0.1.1',
+    version='0.1.2',
     packages=['thermic'],
     zip_safe=False
 )
