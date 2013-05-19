@@ -15,31 +15,33 @@ class Sensor(object):
     :param label_path: path to the label for this sensor
     :type label_path: str
     """
-    def __init__(self, root, input_path, label_path):
+    def __init__(self, root, sid):
         self.root = root
-        self.input_path = input_path
-        self.label_path = label_path
+        self.sid = sid
+
+        self.input_path = os.path.join(self.root, "{0}_input".format(self.sid))
+        self.label_path = os.path.join(self.root, "{0}_label".format(self.sid))
 
     @property
     def label(self):
         try:
-            with open(self.label_path,'r') as f:
+            with open(self.label_path, 'r') as f:
                 label_data = f.read()
         except:
-            with open(os.path.join(self.root,"name"), 'r') as f:
+            with open(os.path.join(self.root, "name"), 'r') as f:
                 label_data = f.read()
         return label_data.strip()
 
     @property
     def raw(self):
-        with open(self.input_path,'r') as f:
+        with open(self.input_path, 'r') as f:
             temp = float(f.read())
         return temp
 
     @property
     def tempc(self):
         temp = self.raw
-        return temp / 1000.0 # change for millidegrees to degrees
+        return temp / 1000.0  # change for millidegrees to degrees
 
     @property
     def tempf(self):
@@ -64,9 +66,7 @@ class Sensor(object):
         """
         sensors = []
         for _id in ids:
-            label_f = os.path.join(root, "{0}_label".format(_id))
-            input_f = os.path.join(root, "{0}_input".format(_id))
-            sensors.append(Sensor(root, input_f, label_f))
+            sensors.append(Sensor(root, _id))
         return sensors
 
 
@@ -91,6 +91,7 @@ def find_sensors():
             if 'device' in dirs and any(map(lambda f: f.startswith('temp'), files)):
                 dirs.remove('device')
             temperature_things = filter(lambda f: "temp" in f, files)
-            sensor_ids = set(map(lambda f: f.split("_")[0], temperature_things))
+            sensor_ids = set(map(
+                lambda f: f.split("_")[0], temperature_things))
             sensors.extend(Sensor.from_ids(root, sensor_ids))
     return sensors
