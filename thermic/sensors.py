@@ -90,7 +90,7 @@ def find_sensors():
                 dirs.remove('hwmon')
             if 'device' in dirs and any(map(lambda f: f.startswith('temp'), files)):
                 dirs.remove('device')
-            temperature_things = filter(lambda f: "temp" in f, files)
+            temperature_things = filter(lambda f: f.startswith('temp'), files)
             sensor_ids = set(map(
                 lambda f: f.split("_")[0], temperature_things))
             sensors.extend(Sensor.from_ids(root, sensor_ids))
