@@ -21,6 +21,22 @@ class Sensor(object):
 
         self.input_path = os.path.join(self.root, "{0}_input".format(self.sid))
         self.label_path = os.path.join(self.root, "{0}_label".format(self.sid))
+        self.lowest_path = os.path.join(self.root, "{0}_lowest".format(self.sid))
+        self.highest_path = os.path.join(self.root, "{0}_highest".format(self.sid))
+
+    @classmethod
+    def _to_celcius(cls, temp):
+        if temp is None:
+            return None
+        else:
+            return temp / 1000.0
+
+    @classmethod
+    def _to_fahrenheit(cls, temp):
+        if temp is None:
+            return None
+        else:
+            return (temp * 1.8) + 32.0
 
     @property
     def label(self):
@@ -46,6 +62,40 @@ class Sensor(object):
     @property
     def tempf(self):
         return (self.tempc * 1.8) + 32.0
+
+    @property
+    def highest(self):
+        try:
+            with open(self.highest_path, 'r') as f:
+                temp = float(f.read())
+            return temp
+        except:
+            return None
+
+    @property
+    def highestc(self):
+        return Sensor._to_celcius(self.highest)
+
+    @property
+    def highestf(self):
+        return Sensor._to_fahrenheit(self.highestc)
+
+    @property
+    def lowest(self):
+        try:
+            with open(self.lowest_path, 'r') as f:
+                temp = float(f.read())
+            return temp
+        except:
+            return None
+
+    @property
+    def lowestc(self):
+        return Sensor._to_celcius(self.lowest)
+
+    @property
+    def lowestf(self):
+        return Sensor._to_fahrenheit(self.lowestc)
 
     def __repr__(self):
         return self.label
